@@ -2,9 +2,13 @@ Imports System
 Imports System.Security.Cryptography.X509Certificates
 
 Module Program
+    Dim symbolOne As String = ""
+    Dim symbolTwo As String = ""
+    Dim gameBoard(7, 6) As String
+    Dim gameWon As Boolean = False
     Sub Main()
         Dim nameOne As String 'i remember this as being a global variable when it's set up like this, but apparently not, hence why player names are passed as parameters in literally. every. sub.
-        Dim nameTwo As String
+        Dim nameTwo As String REM please remember to not do stupid stuff like this unless its better (i've fallen upwards on this one)
         Dim menuOption As Integer
         Dim validInput As Boolean = False
         'Creating variables
@@ -41,9 +45,49 @@ Module Program
         End Select
     End Sub
     Sub playGame(playerOne, playerTwo)
+        Dim columnNo As Integer = 0
+        Dim gameWon As Boolean = False
+        Dim playerNo As Integer = 1
+        Dim validInput As Boolean = False
         Console.WriteLine("Welcome to the playGame sub.")
         Call pickSymbols(playerOne, playerTwo) 'Immediately send players to pick their symbols
-
+        For i As Integer = 1 To 7
+            For j As Integer = 1 To 6
+                gameBoard(i, j) = " - "
+            Next
+        Next
+        Call drawBoard()
+        While gameWon = False
+            playerNo += 1
+            If playerNo Mod 2 <> 0 Then
+                Console.WriteLine(playerOne & ", please choose a column number from 1-7 to place your counter: ")
+                While validInput = False
+                    columnNo = Console.ReadLine()
+                    If columnNo > 7 Then
+                        Console.WriteLine("Oops! That was too large! Please try again!")
+                    ElseIf columnNo < 1 Then
+                        Console.WriteLine("Oops! That was too small! Please try again!")
+                    Else
+                        Call placeCounter(columnNo, 1)
+                        validInput = True
+                    End If
+                End While
+                validInput = False
+            ElseIf playerNo Mod 2 = 0 Then
+                Console.WriteLine(playerTwo & ", please choose a column number from 1-7 to place your counter: ")
+                While validInput = False
+                    columnNo = Console.ReadLine()
+                    If columnNo > 7 Then
+                        Console.WriteLine("Oops! That was too large! Please try again!")
+                    ElseIf columnNo < 1 Then
+                        Console.WriteLine("Oops! That was too small! Please try again!")
+                    Else
+                        Call placeCounter(columnNo, 2)
+                        validInput = True
+                    End If
+                End While
+            End If
+        End While
     End Sub
     Sub saveWin(playerOne, playerTwo)
         Console.WriteLine("Welcome to the saveWin sub.")
@@ -53,8 +97,6 @@ Module Program
     End Sub
     Sub pickSymbols(nameOne, nameTwo)
         Console.WriteLine("Welcome to the pickSymbols sub.")
-        Dim symbolOne As String
-        Dim symbolTwo As String
         Dim validInput As Boolean = False
         Console.WriteLine(nameOne & " you are player one. Please enter a single-character symbol below:")
         While validInput = False
@@ -78,5 +120,43 @@ Module Program
                 Console.WriteLine(nameTwo & " you have selected " & symbolOne & " as your symbol.")
             End If
         End While
+    End Sub
+    Sub drawBoard()
+        For i As Integer = 1 To 7
+            Console.WriteLine(i)
+            For j As Integer = 1 To 6
+                Console.WriteLine(gameBoard(j, i))
+            Next
+        Next
+    End Sub
+    Sub placeCounter(ByRef columnNo, playerNo)
+        Dim currentRow As Integer = 0
+        Dim validInput As Boolean = False
+        Console.WriteLine("Welcome to the placeCounter sub.")
+        While validInput = False
+            For i As Integer = 1 To 6
+                If gameBoard(i, columnNo) = " - " Then
+                    currentRow = i
+                    validInput = True
+                Else
+                    Console.WriteLine("Oops! That didn't seem to work! Please enter a free column: ")
+                    Call drawBoard()
+                    columnNo = Console.ReadLine()
+                End If
+            Next
+        End While
+        If playerNo = 1 Then
+            gameBoard(currentRow, columnNo) = symbolOne
+            Call drawBoard()
+        Else
+            gameBoard(currentRow, columnNo) = symbolTwo
+            Call drawBoard()
+        End If
+    End Sub
+    Sub checkHorizontal()
+        Dim 
+        For i As Integer = 1 To 7
+
+        Next
     End Sub
 End Module
