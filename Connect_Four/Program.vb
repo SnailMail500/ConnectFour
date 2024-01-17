@@ -58,6 +58,11 @@ Module Program
         Next
         Call drawBoard()
         While gameWon = False
+            If checkHorizontal() = False Then
+                gameWon = False
+            ElseIf checkHorizontal() = True Then
+                gameWon = True
+            End If
             playerNo += 1
             If playerNo Mod 2 <> 0 Then
                 Console.WriteLine(playerOne & ", please choose a column number from 1-7 to place your counter: ")
@@ -153,10 +158,21 @@ Module Program
             Call drawBoard()
         End If
     End Sub
-    Sub checkHorizontal()
-        Dim 
-        For i As Integer = 1 To 7
-
-        Next
-    End Sub
+    Function checkHorizontal()
+        Dim winFound As Boolean = False
+        While winFound = False
+            For i As Integer = 1 To 7
+                For j As Integer = 1 To 6
+                    If gameBoard(j, i) = gameBoard(j, i + 1) And gameBoard(j, i) = gameBoard(j, i + 2) And gameBoard(j, i) = gameBoard(j, i + 3) And gameBoard(j, i) = gameBoard(j, i + 4) Then
+                        winFound = True
+                        Return True
+                    ElseIf gameBoard(j, i) <> gameBoard(j, i + 1) Then
+                        Return False
+                    Else
+                        Return False
+                    End If
+                Next
+            Next
+        End While
+    End Function
 End Module
