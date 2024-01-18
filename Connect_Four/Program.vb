@@ -1,4 +1,5 @@
 Imports System
+Imports System.IO
 Imports System.Runtime.CompilerServices
 Imports System.Security.Cryptography.X509Certificates
 
@@ -264,4 +265,20 @@ Module Program
         'End If
         'This was an experiment to test if an else is needed in an if statement because it wasn't obvious to me... I'm sure that ive used if without else before
     End Function
+    Sub saveWin(nameOne, nameTwo)
+        'Dim openedFile As FileStream = New FileStream("saved.txt", FileMode.CreateNew, FileAccess.Write)
+        'For i As Integer = 1 To 7
+        '    For j As Integer = 1 To 6
+        '        openedFile.Write(gameBoard(i, j))
+        '    Next
+        '    openedFile.Write(vbCrLf)
+        'Next
+        'It'll be nice in a couple of weeks when i can do file handling...
+        Console.WriteLine("Coming soon, after I'm not finding out how to do file handling from some obnoxious stackoverflow post which makes no sense")
+    End Sub
+    Sub loadWin(nameOne, nameTwo)
+        'Dim openedFile As FileStream = New FileStream("saved.txt", FileMode.Open, FileAccess.Read)
+        'Console.WriteLine(openedFile.Read)
+        Console.WriteLine("Coming soon, after I'm not finding out how to do file handling from some obnoxious stackoverflow post which makes no sense")
+    End Sub
 End Module
