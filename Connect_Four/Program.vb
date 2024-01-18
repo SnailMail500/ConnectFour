@@ -135,7 +135,7 @@ Module Program
         For i As Integer = 1 To 7
             Console.WriteLine(i)
             For j As Integer = 1 To 6
-                Console.WriteLine(gameBoard(j, i))
+                Console.WriteLine(gameBoard(i, j))
             Next
         Next
     End Sub
