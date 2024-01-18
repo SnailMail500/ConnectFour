@@ -58,13 +58,20 @@ Module Program
         Next
         Call drawBoard()
         While gameWon = False
-            If checkHorizontal() = False And checkVertical() = False And checkDiagonal() = False Then
+            If checkHorizontal() = False And checkVertical() = False And checkDiagonalRight(symbolOne) = False And checkDiagonalRight(symbolTwo) = False And checkDiagonalLeft(symbolOne) = False And checkDiagonalLeft(symbolTwo) = False Then
+                REM this is horrible 
                 gameWon = False
             ElseIf checkHorizontal() = True Then
                 gameWon = True
             ElseIf checkVertical() = True Then
                 gameWon = True
-            ElseIf checkDiagonal() = True Then
+            ElseIf checkDiagonalRight(symbolOne) = True Then
+                gameWon = True
+            ElseIf checkDiagonalRight(symbolTwo) = True Then
+                gameWon = True
+            ElseIf checkDiagonalLeft(symbolOne) = True Then
+                gameWon = True
+            ElseIf checkDiagonalLeft(symbolTwo) = True Then
                 gameWon = True
             End If
             playerNo += 1
@@ -133,7 +140,7 @@ Module Program
     End Sub
     Sub drawBoard()
         For i As Integer = 1 To 7
-
+            Console.Write(" " & i & " ")
             For j As Integer = 1 To 6
                 Console.Write(gameBoard(i, j))
             Next
@@ -204,7 +211,19 @@ Module Program
         End While
         Return False
     End Function
-    Function checkDiagonal()
+    Function checkDiagonalRight(ByVal symbol)
+        For i As Integer = 1 To 4
+            For j As Integer = 4 To 6
+                If gameBoard(i, j) = symbol And gameBoard(i + 1, j + 1) = symbol And gameBoard(i + 2, j - 2) = symbol And gameBoard(i + 3, j - 3) = symbol Then
+                    Return True
+                Else
+                    Return False
+                End If
+            Next
+        Next
+        Return False
+    End Function
+    Function checkDiagonalLeft(ByVal symbol)
         Return False
     End Function
 End Module
