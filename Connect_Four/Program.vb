@@ -133,11 +133,11 @@ Module Program
     End Sub
     Sub drawBoard()
         For i As Integer = 1 To 7
-            Console.Write(i)
+
             For j As Integer = 1 To 6
-                Console.WriteLine(gameBoard(i, j))
+                Console.Write(gameBoard(i, j))
             Next
-            Console.WriteLine(vbCrLf)
+            Console.Write(vbCrLf)
         Next
     End Sub
     Sub placeCounter(ByRef columnNo, playerNo)
