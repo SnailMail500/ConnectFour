@@ -58,9 +58,13 @@ Module Program
         Next
         Call drawBoard()
         While gameWon = False
-            If checkHorizontal() = False Then
+            If checkHorizontal() = False And checkVertical() = False And checkDiagonal() = False Then
                 gameWon = False
             ElseIf checkHorizontal() = True Then
+                gameWon = True
+            ElseIf checkVertical() = True Then
+                gameWon = True
+            ElseIf checkDiagonal() = True Then
                 gameWon = True
             End If
             playerNo += 1
@@ -123,6 +127,7 @@ Module Program
                 Console.WriteLine("Sorry! That's the same as Player One's symbol." & vbCrLf & "Please enter a single-character symbol, DIFFERENT TO THAT OF PLAYER ONE'S, below: ")
             Else
                 Console.WriteLine(nameTwo & " you have selected " & symbolOne & " as your symbol.")
+                validInput = True
             End If
         End While
     End Sub
@@ -167,12 +172,38 @@ Module Program
                         winFound = True
                         Return True
                     ElseIf gameBoard(j, i) <> gameBoard(j, i + 1) Then
+                        winFound = False
                         Return False
                     Else
+                        winFound = False
                         Return False
                     End If
                 Next
             Next
         End While
+        Return False
+    End Function
+    Function checkVertical()
+        Dim winFound As Boolean = False
+        While winFound = False
+            For i As Integer = 1 To 7
+                For j As Integer = 1 To 6
+                    If gameBoard(j, i) = gameBoard(j + 1, i) And gameBoard(j, i) = gameBoard(j + 2, i) And gameBoard(j, i) = gameBoard(j + 3, i) And gameBoard(j, i) = gameBoard(j + 4, i) Then
+                        winFound = True
+                        Return True
+                    ElseIf gameBoard(j, i) <> gameBoard(j + 1, i) Then
+                        winFound = False
+                        Return False
+                    Else
+                        winFound = False
+                        Return False
+                    End If
+                Next
+            Next
+        End While
+        Return False
+    End Function
+    Function checkDiagonal()
+        Return False
     End Function
 End Module
