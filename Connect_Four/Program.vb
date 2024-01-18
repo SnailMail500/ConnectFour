@@ -1,11 +1,11 @@
 Imports System
+Imports System.Runtime.CompilerServices
 Imports System.Security.Cryptography.X509Certificates
 
 Module Program
     Dim symbolOne As String = ""
     Dim symbolTwo As String = ""
     Dim gameBoard(7, 6) As String
-    Dim gameWon As Boolean = False
     Sub Main()
         Dim nameOne As String 'i remember this as being a global variable when it's set up like this, but apparently not, hence why player names are passed as parameters in literally. every. sub.
         Dim nameTwo As String REM please remember to not do stupid stuff like this unless its better (i've fallen upwards on this one)
@@ -46,9 +46,10 @@ Module Program
     End Sub
     Sub playGame(playerOne, playerTwo)
         Dim columnNo As Integer = 0
-        Dim gameWon As Boolean = False
+        Dim gameDone As Boolean = False
         Dim playerNo As Integer = 1
         Dim validInput As Boolean = False
+        Dim emptyCount As Integer = 0 'This will add up all the empty spaces in the grid so i know if no more moves can be made- I am allowing moves to be made if a draw will be forced by simply filling the grid because thats how i remember connect 4 working, most people won't realise unless they're really good, and out of slight laziness because the code will be really complex and it's quite late.
         Console.WriteLine("Welcome to the playGame sub.")
         Call pickSymbols(playerOne, playerTwo) 'Immediately send players to pick their symbols
         For i As Integer = 1 To 7
@@ -57,23 +58,24 @@ Module Program
             Next
         Next
         Call drawBoard()
-        While gameWon = False
+        While gameDone = False
             If checkHorizontal() = False And checkVertical() = False And checkDiagonalRight(symbolOne) = False And checkDiagonalRight(symbolTwo) = False And checkDiagonalLeft(symbolOne) = False And checkDiagonalLeft(symbolTwo) = False Then
                 REM this is horrible 
-                gameWon = False
+                gameDone = False
             ElseIf checkHorizontal() = True Then
-                gameWon = True
+                gameDone = True
             ElseIf checkVertical() = True Then
-                gameWon = True
+                gameDone = True
             ElseIf checkDiagonalRight(symbolOne) = True Then
-                gameWon = True
+                gameDone = True
             ElseIf checkDiagonalRight(symbolTwo) = True Then
-                gameWon = True
+                gameDone = True
             ElseIf checkDiagonalLeft(symbolOne) = True Then
-                gameWon = True
+                gameDone = True
             ElseIf checkDiagonalLeft(symbolTwo) = True Then
-                gameWon = True
+                gameDone = True
             End If
+            'this whole thing is monstrous
             playerNo += 1
             If playerNo Mod 2 <> 0 Then
                 Console.WriteLine(playerOne & ", please choose a column number from 1-7 to place your counter: ")
@@ -103,7 +105,29 @@ Module Program
                     End If
                 End While
             End If
+            For i As Integer = 1 To 7 'After turns this checks for empty spaces on the grid so it can end the game- see comment on line 52 for the rest of the info about this
+                For j As Integer = 1 To 6
+                    If gameBoard(i, j) = " - " Then
+                        emptyCount += 1
+                    Else
+                        emptyCount = emptyCount 'I realise I don't need this but it looks better in my head
+                    End If
+                Next
+            Next
+            If emptyCount = 0 Then
+                gameDone = True
+            ElseIf emptyCount > 0 Then
+                gameDone = False 'Again unnecessary but it looks better in my head
+            End If
         End While
+        If gameDone = True Then
+            If playerNo Mod 2 = 0 Then
+                Console.WriteLine("No more moves can be made. The game was won by " & playerTwo)
+            Else
+                Console.WriteLine("No more moves can be made. The game was won by " & playerOne)
+            End If
+        End If
+
     End Sub
     Sub saveWin(playerOne, playerTwo)
         Console.WriteLine("Welcome to the saveWin sub.")
@@ -171,6 +195,7 @@ Module Program
             Call drawBoard()
         End If
     End Sub
+    'Split all the win checking into different functions so it's more readable and because it's easier than having one ginormous function with a million different returns
     Function checkHorizontal()
         Dim winFound As Boolean = False
         While winFound = False
@@ -214,7 +239,19 @@ Module Program
     Function checkDiagonalRight(ByVal symbol)
         For i As Integer = 1 To 4
             For j As Integer = 4 To 6
-                If gameBoard(i, j) = symbol And gameBoard(i + 1, j + 1) = symbol And gameBoard(i + 2, j - 2) = symbol And gameBoard(i + 3, j - 3) = symbol Then
+                If gameBoard(i, j) = symbol And gameBoard(i + 1, j - 1) = symbol And gameBoard(i + 2, j - 2) = symbol And gameBoard(i + 3, j - 3) = symbol Then
+                    Return True
+                Else 'not writing all that out again for an else if
+                    Return False
+                End If
+            Next
+        Next
+        Return False
+    End Function
+    Function checkDiagonalLeft(ByVal symbol) 'Instead of using symbols here i could and maybe should have passed through a player number and got it to check, or maybe i could have added an extra if statement (but wouldn't that be repeating code which is... bad practice?)
+        For i As Integer = 1 To 4
+            For j As Integer = 4 To 6
+                If gameBoard(i, j) = symbol And gameBoard(i - 1, j + 1) = symbol And gameBoard(i - 2, j + 2) = symbol And gameBoard(i - 3, j + 3) = symbol Then
                     Return True
                 Else
                     Return False
@@ -222,8 +259,9 @@ Module Program
             Next
         Next
         Return False
-    End Function
-    Function checkDiagonalLeft(ByVal symbol)
-        Return False
+        'If True Then
+        '    Console.WriteLine()
+        'End If
+        'This was an experiment to test if an else is needed in an if statement because it wasn't obvious to me... I'm sure that ive used if without else before
     End Function
 End Module
