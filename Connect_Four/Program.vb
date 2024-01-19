@@ -128,14 +128,14 @@ Module Program
                 Console.WriteLine("No more moves can be made. The game was won by " & playerOne)
             End If
         End If
-
     End Sub
-    Sub saveWin(playerOne, playerTwo)
-        Console.WriteLine("Welcome to the saveWin sub.")
-    End Sub
-    Sub loadWin(playerOne, playerTwo)
-        Console.WriteLine("Welcome to the loadWin sub.")
-    End Sub
+    REM THIS IS SAVE AND LOAD WIN TOO- It has some stuff that the code needs to do but can't have them as file handling in vb is stupid and annoying
+    'Sub saveWin(playerOne, playerTwo)
+    '    Console.WriteLine("Welcome to the saveWin sub.")
+    'End Sub
+    'Sub loadWin(playerOne, playerTwo)
+    '    Console.WriteLine("Welcome to the loadWin sub.")
+    'End Sub
     Sub pickSymbols(nameOne, nameTwo)
         Console.WriteLine("Welcome to the pickSymbols sub.")
         Dim validInput As Boolean = False
