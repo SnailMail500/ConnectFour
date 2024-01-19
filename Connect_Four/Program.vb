@@ -50,7 +50,7 @@ Module Program
         Dim gameDone As Boolean = False
         Dim playerNo As Integer = 1
         Dim validInput As Boolean = False
-        Dim emptyCount As Integer = 0 'This will add up all the empty spaces in the grid so i know if no more moves can be made- I am allowing moves to be made if a draw will be forced by simply filling the grid because thats how i remember connect 4 working, most people won't realise unless they're really good, and out of slight laziness because the code will be really complex and it's quite late.
+        Dim emptyCount As Integer = 0 'This will add up all the empty spaces in the grid so i know if no more moves can be made- I am allowing moves to be made if a draw will be forced by simply filling the grid because thats how i remember connect 4 working, most people won't realise unless they're really good, and out of slight laziness because the code will be really complex and it's quite late at night.
         Console.WriteLine("Welcome to the playGame sub.")
         Call pickSymbols(playerOne, playerTwo) 'Immediately send players to pick their symbols
         For i As Integer = 1 To 7
@@ -252,7 +252,7 @@ Module Program
     Function checkDiagonalLeft(ByVal symbol) 'Instead of using symbols here i could and maybe should have passed through a player number and got it to check, or maybe i could have added an extra if statement (but wouldn't that be repeating code which is... bad practice?)
         For i As Integer = 1 To 4
             For j As Integer = 4 To 6
-                If gameBoard(i, j) = symbol And gameBoard(i - 1, j + 1) = symbol And gameBoard(i - 2, j + 2) = symbol And gameBoard(i - 3, j + 3) = symbol Then
+                If gameBoard(i, j) = symbol And gameBoard(i - 1, j - 1) = symbol And gameBoard(i - 2, j - 2) = symbol And gameBoard(i - 3, j - 3) = symbol Then
                     Return True
                 Else
                     Return False
@@ -265,7 +265,7 @@ Module Program
         'Else
         '   Console.WriteLine("b")
         'End If
-        'This was an experiment to test if an else is needed in an if statement because it wasn't obvious to me... I'm sure that ive used if without else before
+        'This was an experiment to test if an else is needed in an if statement because it wasn't obvious to me... I'm sure that I've used if without else before
     End Function
     Sub saveWin(nameOne, nameTwo)
         Console.WriteLine("You are now in the saveWin sub. ")
@@ -286,4 +286,4 @@ Module Program
         Console.WriteLine("Coming soon, after I'm not finding out how to do file handling from some obnoxious stackoverflow post which makes no sense")
     End Sub
 End Module
-'yeah, not bonkers enough to write an AI to play this against, especially given that I have definitely properly tested this before 2 the day that it's due.
+'yeah, not bonkers enough to write an AI to play this against, especially given that I have definitely properly tested this before 3 on the day that it's due.
