@@ -6,8 +6,9 @@ Imports System.Security.Cryptography.X509Certificates
 Module Program
     Dim symbolOne As String = ""
     Dim symbolTwo As String = ""
-    Dim gameBoard(7, 6) As String
+    Dim gameBoard(8, 7) As String
     Sub Main()
+        Call makeBoard()
         Dim nameOne As String 'i remember this as being a global variable when it's set up like this, but apparently not, hence why player names are passed as parameters in literally. every. sub.
         Dim nameTwo As String REM please remember to not do stupid stuff like this unless its better (i've fallen upwards on this one)
         Dim menuOption As Integer
@@ -45,6 +46,13 @@ Module Program
                 Call loadWin(nameOne, nameTwo)
         End Select
     End Sub
+    Sub makeBoard()
+        For i As Integer = 1 To 7
+            For j As Integer = 1 To 6
+                gameBoard(i, j) = " - "
+            Next
+        Next
+    End Sub
     Sub playGame(playerOne, playerTwo)
         Dim columnNo As Integer = 0
         Dim gameDone As Boolean = False
@@ -53,11 +61,6 @@ Module Program
         Dim emptyCount As Integer = 0 'This will add up all the empty spaces in the grid so i know if no more moves can be made- I am allowing moves to be made if a draw will be forced by simply filling the grid because thats how i remember connect 4 working, most people won't realise unless they're really good, and out of slight laziness because the code will be really complex and it's quite late at night.
         Console.WriteLine("Welcome to the playGame sub.")
         Call pickSymbols(playerOne, playerTwo) 'Immediately send players to pick their symbols
-        For i As Integer = 1 To 7
-            For j As Integer = 1 To 6
-                gameBoard(i, j) = " - "
-            Next
-        Next
         Call drawBoard()
         While gameDone = False
             If checkHorizontal() = False And checkVertical() = False And checkDiagonalRight(symbolOne) = False And checkDiagonalRight(symbolTwo) = False And checkDiagonalLeft(symbolOne) = False And checkDiagonalLeft(symbolTwo) = False Then
@@ -164,8 +167,8 @@ Module Program
         End While
     End Sub
     Sub drawBoard()
+        Console.WriteLine("1  2  3  4  5  6  7 ")
         For i As Integer = 1 To 7
-            Console.Write(" " & i & " ")
             For j As Integer = 1 To 6
                 Console.Write(gameBoard(i, j))
             Next
