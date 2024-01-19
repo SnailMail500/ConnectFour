@@ -167,7 +167,7 @@ Module Program
         End While
     End Sub
     Sub drawBoard()
-        Console.WriteLine("1  2  3  4  5  6  7 ") 'Try something more simple then?
+        Console.WriteLine(" 1 2 3 4 5 6 7 ") 'Try something more simple then?
         For i As Integer = 1 To 7
             For j As Integer = 1 To 6
                 Console.Write(gameBoard(i, j))
