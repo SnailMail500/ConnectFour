@@ -129,7 +129,7 @@ Module Program
             End If
         End If
     End Sub
-    REM THIS IS SAVE AND LOAD WIN TOO- It has some stuff that the code needs to do but can't have them as file handling in vb is stupid and annoying
+    REM THIS DOESN'T MATTER ANYMORE- ACTUAL ATTEMPTS AT SAVE AND LOAD WIN ARE AT THE BOTTOM SOMEWHERE
     'Sub saveWin(playerOne, playerTwo)
     '    Console.WriteLine("Welcome to the saveWin sub.")
     'End Sub
@@ -268,6 +268,7 @@ Module Program
         'This was an experiment to test if an else is needed in an if statement because it wasn't obvious to me... I'm sure that ive used if without else before
     End Function
     Sub saveWin(nameOne, nameTwo)
+        Console.WriteLine("You are now in the saveWin sub. ")
         'Dim openedFile As FileStream = New FileStream("saved.txt", FileMode.CreateNew, FileAccess.Write)
         'For i As Integer = 1 To 7
         '    For j As Integer = 1 To 6
@@ -279,8 +280,10 @@ Module Program
         Console.WriteLine("Coming soon, after I'm not finding out how to do file handling from some obnoxious stackoverflow post which makes no sense")
     End Sub
     Sub loadWin(nameOne, nameTwo)
+        Console.WriteLine("You are now in the loadWin sub. ")
         'Dim openedFile As FileStream = New FileStream("saved.txt", FileMode.Open, FileAccess.Read)
         'Console.WriteLine(openedFile.Read)
         Console.WriteLine("Coming soon, after I'm not finding out how to do file handling from some obnoxious stackoverflow post which makes no sense")
     End Sub
 End Module
+'yeah, not bonkers enough to write an AI to play this against, especially given that I have definitely properly tested this before 2 the day that it's due.
