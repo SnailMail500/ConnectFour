@@ -261,7 +261,9 @@ Module Program
         Next
         Return False
         'If True Then
-        '    Console.WriteLine()
+        '    Console.WriteLine("a")
+        'Else
+        '   Console.WriteLine("b")
         'End If
         'This was an experiment to test if an else is needed in an if statement because it wasn't obvious to me... I'm sure that ive used if without else before
     End Function
